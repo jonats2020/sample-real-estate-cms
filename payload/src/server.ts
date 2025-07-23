@@ -29,9 +29,10 @@ const start = async () => {
     res.status(200).json({ status: 'healthy' })
   })
 
-  console.log('Starting Payload CMS server...')
+  console.log('Starting Payload CMS server v2...')
   console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set')
-  console.log('DATABASE_URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')
+  console.log('DATABASE_URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')  
+  console.log('All env vars:', Object.keys(process.env).filter(key => key.includes('DATABASE')))
   console.log('Using connection:', process.env.DATABASE_URL || process.env.DATABASE_URI || 'None found')
   
   try {
