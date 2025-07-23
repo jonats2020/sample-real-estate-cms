@@ -5,8 +5,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Properties } from './collections/Properties'
-import { Media } from './collections/Media'
+import { Properties } from './collections/Properties.js'
+import { Media } from './collections/Media.js'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,9 +19,14 @@ export default buildConfig({
   collections: [
     {
       slug: 'users',
-      auth: true,
+      auth: {
+        disableLocalStrategy: true,
+      },
       access: {
         read: () => true,
+        create: () => true,
+        update: () => true,
+        delete: () => true,
       },
       fields: [
         {
