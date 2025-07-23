@@ -30,7 +30,9 @@ const start = async () => {
   })
 
   console.log('Starting Payload CMS server...')
-  console.log('Database URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')
+  console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set')
+  console.log('DATABASE_URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')
+  console.log('Using connection:', process.env.DATABASE_URL || process.env.DATABASE_URI || 'None found')
   
   try {
     // Initialize Payload
