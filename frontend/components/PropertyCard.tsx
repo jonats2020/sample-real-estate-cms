@@ -6,17 +6,14 @@ interface PropertyCardProps {
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
-  const imageUrl = property.image?.sizes?.card?.url || property.image?.url || '/placeholder.jpg'
-  const fullImageUrl = imageUrl.startsWith('http') 
-    ? imageUrl 
-    : `${process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000'}${imageUrl}`
+  const imageUrl = property.imageUrl || '/placeholder.jpg'
 
   return (
     <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       <div className="aspect-[4/3] overflow-hidden relative">
         <img
-          src={fullImageUrl}
-          alt={property.image?.alt || property.title}
+          src={imageUrl}
+          alt={property.title}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
         />
         <Link 

@@ -16,10 +16,7 @@ export default async function PropertyPage({ params }: PageProps) {
     notFound()
   }
 
-  const imageUrl = property.image?.url || '/placeholder.jpg'
-  const fullImageUrl = imageUrl.startsWith('http') 
-    ? imageUrl 
-    : `${process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000'}${imageUrl}`
+  const imageUrl = property.imageUrl || '/placeholder.jpg'
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -27,8 +24,8 @@ export default async function PropertyPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto">
           <div className="relative h-96 w-full mb-8 rounded-lg overflow-hidden">
             <Image
-              src={fullImageUrl}
-              alt={property.image?.alt || property.title}
+              src={imageUrl}
+              alt={property.title}
               fill
               className="object-cover"
               priority
