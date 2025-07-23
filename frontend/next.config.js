@@ -13,6 +13,16 @@ const nextConfig = {
         hostname: '*.railway.app',
         pathname: '/media/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sample-real-estate-cms-production.up.railway.app',
+        pathname: '/**',
+      },
     ],
   },
 }

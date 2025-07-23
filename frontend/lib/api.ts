@@ -79,11 +79,12 @@ export async function getProperties(): Promise<Property[]> {
     })
     
     if (!response.ok) {
-      throw new Error('Failed to fetch properties')
+      console.log('API not available, using sample data')
+      return sampleProperties
     }
     
     const data = await response.json()
-    return data.docs || sampleProperties
+    return data.docs && data.docs.length > 0 ? data.docs : sampleProperties
   } catch (error) {
     console.error('Error fetching properties, using sample data:', error)
     return sampleProperties
