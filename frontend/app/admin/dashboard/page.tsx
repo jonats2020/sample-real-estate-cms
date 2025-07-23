@@ -130,9 +130,9 @@ export default function AdminDashboard() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {property.image?.url ? (
+                        {property.imageUrl ? (
                           <img 
-                            src={property.image.url} 
+                            src={property.imageUrl} 
                             alt={property.title}
                             className="w-16 h-12 object-cover rounded-lg border"
                             onError={(e) => {
