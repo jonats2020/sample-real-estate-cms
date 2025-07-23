@@ -1,4 +1,4 @@
-const PAYLOAD_API_URL = process.env.NEXT_PUBLIC_PAYLOAD_API_URL || 'http://localhost:3000/api'
+const PAYLOAD_API_URL = process.env.NEXT_PUBLIC_PAYLOAD_API_URL || 'https://sample-real-estate-cms-production.up.railway.app/api'
 
 export interface Property {
   id: string
