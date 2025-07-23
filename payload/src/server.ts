@@ -1,16 +1,14 @@
-import express from 'express'
+import { getPayload } from 'payload'
+import config from './payload.config.js'
 
-const app = express()
-const PORT = Number(process.env.PORT) || 3000
+const start = async () => {
+  const payload = await getPayload({ config })
+  
+  payload.logger.info('Payload CMS started successfully')
+  payload.logger.info(`Admin URL: ${payload.getAdminURL()}`)
+}
 
-app.get('/', (req, res) => {
-  res.send('Payload CMS is running!')
-})
-
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'healthy' })
-})
-
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`)
+start().catch((error) => {
+  console.error('Error starting Payload:', error)
+  process.exit(1)
 })
