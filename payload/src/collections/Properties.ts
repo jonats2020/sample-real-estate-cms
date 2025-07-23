@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 
 export const Properties: CollectionConfig = {
   slug: 'properties',
@@ -24,7 +24,7 @@ export const Properties: CollectionConfig = {
       },
       hooks: {
         beforeValidate: [
-          ({ value, originalDoc, data }) => {
+          ({ value, originalDoc, data }: any) => {
             if (!value && data?.title) {
               return data.title
                 .toLowerCase()
@@ -53,7 +53,7 @@ export const Properties: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
     },
     {
       name: 'description',

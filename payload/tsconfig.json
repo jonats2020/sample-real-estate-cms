@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "commonjs",
+    "module": "ES2022",
     "lib": ["ES2022"],
     "jsx": "react",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
+    "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "payload/config": ["./node_modules/payload/dist/config/types"]
-    }
+    "rootDir": "./src"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
