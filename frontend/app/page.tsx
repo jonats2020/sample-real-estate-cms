@@ -1,5 +1,5 @@
 import { getProperties } from '@/lib/api';
-import PropertyCard from '@/components/PropertyCard';
+import PropertyListing from '@/components/PropertyListing';
 import HeroSection from '@/components/HeroSection'; // New component
 
 export default async function Home() {
@@ -23,26 +23,9 @@ export default async function Home() {
           </p>
         </div>
 
-        {/* Property Listings */}
+        {/* Property Listings with Filtering and Pagination */}
         <div className="mt-10">
-          {properties.length === 0 ? (
-            <div className="text-center py-20 bg-white rounded-lg shadow-sm">
-              <p className="text-gray-600 text-xl font-medium">
-                No properties available at the moment.
-              </p>
-              <p className="text-gray-500 mt-3">
-                We&apos;re constantly updating our listings, please check back soon!
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {properties.map((property) => (
-                  <PropertyCard key={property.id} property={property} />
-                ))}
-              </div>
-            </>
-          )}
+          <PropertyListing properties={properties} />
         </div>
       </div>
     </div>
