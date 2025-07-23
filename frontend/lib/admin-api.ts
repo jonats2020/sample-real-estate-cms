@@ -6,10 +6,7 @@ export interface AdminProperty {
   slug: string
   location: string
   price: number
-  image?: {
-    url: string
-    alt?: string
-  } | null
+  imageUrl?: string
   description: string
   isPublished: boolean
 }
