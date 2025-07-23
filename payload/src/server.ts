@@ -67,11 +67,9 @@ const start = async () => {
         console.log('Resetting database schema...')
         
         // Force drop the properties table and recreate it
-        // This will force Payload to recreate the table with new schema
         await payload.db.drizzle.execute(`DROP TABLE IF EXISTS properties CASCADE;`)
         await payload.db.drizzle.execute(`DROP TABLE IF EXISTS properties_rels CASCADE;`)
         
-        // Restart Payload to recreate tables with new schema
         console.log('Tables dropped, Payload will recreate on next operation')
         
         res.status(200).json({ 
@@ -80,6 +78,38 @@ const start = async () => {
       } catch (error) {
         console.error('Database reset error:', error)
         res.status(500).json({ error: 'Failed to reset database' })
+      }
+    })
+
+    // Create properties table with imageUrl schema
+    app.post('/api/create-table', async (req, res) => {
+      try {
+        console.log('Creating properties table with imageUrl schema...')
+        
+        // Create properties table manually with correct schema
+        await payload.db.drizzle.execute(`
+          CREATE TABLE IF NOT EXISTS properties (
+            id SERIAL PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) UNIQUE NOT NULL,
+            location VARCHAR(255) NOT NULL,
+            price INTEGER NOT NULL,
+            image_url TEXT,
+            description TEXT,
+            is_published BOOLEAN DEFAULT false,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
+        `)
+        
+        console.log('Properties table created successfully')
+        
+        res.status(200).json({ 
+          message: 'Properties table created with imageUrl schema' 
+        })
+      } catch (error) {
+        console.error('Table creation error:', error)
+        res.status(500).json({ error: 'Failed to create table' })
       }
     })
 
