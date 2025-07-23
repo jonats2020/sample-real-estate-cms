@@ -1,11 +1,15 @@
+'use client'
+
 import Link from 'next/link'
 import type { Property } from '@/lib/api'
+import { useAdmin } from '@/contexts/AdminContext'
 
 interface PropertyCardProps {
   property: Property
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
+  const { isAuthenticated } = useAdmin()
   const imageUrl = property.imageUrl || '/placeholder.jpg'
 
   return (
@@ -16,15 +20,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           alt={property.title}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
         />
-        <Link 
-          href={`/admin/properties/${property.id}`}
-          className="absolute top-3 right-3 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-lg p-2 shadow-sm transition-all"
-          title="Edit property"
-        >
-          <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-          </svg>
-        </Link>
+        {isAuthenticated && (
+          <Link 
+            href={`/admin/properties/${property.id}`}
+            className="absolute top-3 right-3 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-lg p-2 shadow-sm transition-all"
+            title="Edit property"
+          >
+            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </Link>
+        )}
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -41,17 +47,19 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             ${property.price.toLocaleString()}
           </span>
         </div>
-        <div className="flex justify-end">
-          <Link 
-            href={`/admin/properties/${property.id}`}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition-colors"
-            title="Edit property"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-          </Link>
-        </div>
+        {isAuthenticated && (
+          <div className="flex justify-end">
+            <Link 
+              href={`/admin/properties/${property.id}`}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition-colors"
+              title="Edit property"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )
