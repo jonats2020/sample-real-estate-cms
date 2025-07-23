@@ -61,6 +61,28 @@ const start = async () => {
       })
     })
 
+    // Database reset endpoint - drops and recreates properties table
+    app.post('/api/reset-db', async (req, res) => {
+      try {
+        console.log('Resetting database schema...')
+        
+        // Force drop the properties table and recreate it
+        // This will force Payload to recreate the table with new schema
+        await payload.db.drizzle.execute(`DROP TABLE IF EXISTS properties CASCADE;`)
+        await payload.db.drizzle.execute(`DROP TABLE IF EXISTS properties_rels CASCADE;`)
+        
+        // Restart Payload to recreate tables with new schema
+        console.log('Tables dropped, Payload will recreate on next operation')
+        
+        res.status(200).json({ 
+          message: 'Database reset successful - tables will be recreated with new schema' 
+        })
+      } catch (error) {
+        console.error('Database reset error:', error)
+        res.status(500).json({ error: 'Failed to reset database' })
+      }
+    })
+
     // Seed endpoint for manual database reset
     app.post('/api/seed', async (req, res) => {
       try {
