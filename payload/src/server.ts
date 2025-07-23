@@ -36,7 +36,9 @@ const start = async () => {
   console.log('DATABASE_PRIVATE_URL:', process.env.DATABASE_PRIVATE_URL ? 'Set' : 'Not set')
   console.log('All DB env vars:', Object.keys(process.env).filter(key => key.includes('DATABASE') || key.includes('POSTGRES')))
   console.log('All env vars:', Object.keys(process.env).slice(0, 10))
-  console.log('Using connection:', process.env.DATABASE_URL || process.env.DATABASE_URI || process.env.POSTGRES_URL || 'None found')
+  const dbConnection = process.env.DATABASE_URL || process.env.DATABASE_URI || process.env.POSTGRES_URL
+  console.log('Using connection:', dbConnection ? 'Found' : 'None found')
+  console.log('Connection starts with:', dbConnection ? dbConnection.substring(0, 20) + '...' : 'None')
   
   try {
     // Initialize Payload
