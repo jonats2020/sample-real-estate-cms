@@ -17,7 +17,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
         />
         <Link 
-          href={`/edit/${property.id}`}
+          href={`/admin/properties/${property.id}`}
           className="absolute top-3 right-3 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-lg p-2 shadow-sm transition-all"
           title="Edit property"
         >
@@ -43,7 +43,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         </div>
         <div className="flex justify-end">
           <Link 
-            href={`/edit/${property.id}`}
+            href={`/admin/properties/${property.id}`}
             className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition-colors"
             title="Edit property"
           >
