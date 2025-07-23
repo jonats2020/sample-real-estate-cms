@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { AdminProvider } from '@/contexts/AdminContext'
 import AdminProfile from '@/components/AdminProfile'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Real Estate Listings',
@@ -34,6 +35,9 @@ export default function RootLayout({
             <main>
               {children}
             </main>
+            
+            {/* Footer */}
+            <Footer />
           </div>
         </AdminProvider>
       </body>
