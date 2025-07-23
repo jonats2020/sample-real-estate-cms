@@ -18,7 +18,7 @@ export interface Property {
       }
     }
   }
-  description: any
+  description: unknown
   isPublished: boolean
   createdAt: string
   updatedAt: string

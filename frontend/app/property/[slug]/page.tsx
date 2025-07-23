@@ -3,13 +3,14 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default async function PropertyPage({ params }: PageProps) {
-  const property = await getProperty(params.slug)
+  const { slug } = await params
+  const property = await getProperty(slug)
   
   if (!property) {
     notFound()
@@ -44,40 +45,9 @@ export default async function PropertyPage({ params }: PageProps) {
                 ${property.price.toLocaleString()}
               </p>
             </div>
-            
-            {property.description && (
-              <div className="prose prose-lg max-w-none">
-                <h2 className="text-xl font-semibold mb-4 text-gray-900">Description</h2>
-                <div className="text-gray-700">
-                  {typeof property.description === 'string' 
-                    ? property.description 
-                    : renderRichText(property.description)}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
     </main>
   )
-}
-
-function renderRichText(content: any): React.ReactNode {
-  if (!content?.root?.children) return null
-  
-  return content.root.children.map((node: any, index: number) => {
-    if (node.type === 'paragraph') {
-      return (
-        <p key={index} className="mb-4">
-          {node.children?.map((child: any, childIndex: number) => {
-            if (child.type === 'text') {
-              return <span key={childIndex}>{child.text}</span>
-            }
-            return null
-          })}
-        </p>
-      )
-    }
-    return null
-  })
 }
