@@ -13,6 +13,7 @@ export default function EditProperty({ params }: { params: Promise<{ id: string 
     slug: '',
     location: '',
     price: 0,
+    image: null,
     description: '',
     isPublished: false,
   })
@@ -186,6 +187,35 @@ export default function EditProperty({ params }: { params: Promise<{ id: string 
                   min="0"
                   required
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Image URL
+                </label>
+                <input
+                  type="url"
+                  name="imageUrl"
+                  value={formData.image?.url || ''}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    image: e.target.value ? { url: e.target.value } : null
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="https://example.com/image.jpg"
+                />
+                {formData.image?.url && (
+                  <div className="mt-2">
+                    <img 
+                      src={formData.image.url} 
+                      alt="Property preview" 
+                      className="w-24 h-24 object-cover rounded-lg border"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
             </div>
