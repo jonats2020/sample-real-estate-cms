@@ -53,7 +53,7 @@ const start = async () => {
     app.use('/media', express.static(resolve(__dirname, '../media')))
 
     // Admin panel route
-    app.get('/admin*', async (req, res) => {
+    app.get('/admin', async (req, res) => {
       res.status(200).json({
         message: 'Payload v3 Admin Panel',
         note: 'Admin panel requires Next.js integration in v3',

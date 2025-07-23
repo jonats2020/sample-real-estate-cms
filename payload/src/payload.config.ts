@@ -29,9 +29,14 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || process.env.DATABASE_URI || process.env.POSTGRES_URL,
+      // Also try explicit connection parameters as fallback
+      host: process.env.PGHOST || 'maglev.proxy.rlwy.net',
+      port: process.env.PGPORT ? parseInt(process.env.PGPORT) : 40480,
+      database: process.env.PGDATABASE || 'railway',
+      user: process.env.PGUSER || 'postgres',
+      password: process.env.PGPASSWORD || 'YEdIBdAKxWydGyfigSxneulTAstAzHSB',
     },
     migrationDir: './src/migrations',
-    prodMigrations: undefined,
   }),
   sharp,
   cors: [
