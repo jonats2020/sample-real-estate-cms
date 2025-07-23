@@ -74,7 +74,7 @@ const sampleProperties: Property[] = [
 
 export async function getProperties(): Promise<Property[]> {
   try {
-    const response = await fetch(`${PAYLOAD_API_URL}/properties?where[isPublished][equals]=true`, {
+    const response = await fetch(`${PAYLOAD_API_URL}/properties`, {
       next: { revalidate: 60 },
     })
     
@@ -94,7 +94,7 @@ export async function getProperties(): Promise<Property[]> {
 export async function getProperty(slug: string): Promise<Property | null> {
   try {
     const response = await fetch(
-      `${PAYLOAD_API_URL}/properties?where[slug][equals]=${slug}&where[isPublished][equals]=true`,
+      `${PAYLOAD_API_URL}/properties/${slug}`,
       {
         next: { revalidate: 60 },
       }
@@ -105,7 +105,7 @@ export async function getProperty(slug: string): Promise<Property | null> {
     }
     
     const data = await response.json()
-    return data.docs?.[0] || null
+    return data || null
   } catch (error) {
     console.error('Error fetching property, using sample data:', error)
     return sampleProperties.find(p => p.slug === slug) || null
