@@ -29,11 +29,14 @@ const start = async () => {
     res.status(200).json({ status: 'healthy' })
   })
 
-  console.log('Starting Payload CMS server v2...')
+  console.log('Starting Payload CMS server v3...')
   console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set')
-  console.log('DATABASE_URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')  
-  console.log('All env vars:', Object.keys(process.env).filter(key => key.includes('DATABASE')))
-  console.log('Using connection:', process.env.DATABASE_URL || process.env.DATABASE_URI || 'None found')
+  console.log('DATABASE_URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')
+  console.log('POSTGRES_URL:', process.env.POSTGRES_URL ? 'Set' : 'Not set')
+  console.log('DATABASE_PRIVATE_URL:', process.env.DATABASE_PRIVATE_URL ? 'Set' : 'Not set')
+  console.log('All DB env vars:', Object.keys(process.env).filter(key => key.includes('DATABASE') || key.includes('POSTGRES')))
+  console.log('All env vars:', Object.keys(process.env).slice(0, 10))
+  console.log('Using connection:', process.env.DATABASE_URL || process.env.DATABASE_URI || process.env.POSTGRES_URL || 'None found')
   
   try {
     // Initialize Payload
