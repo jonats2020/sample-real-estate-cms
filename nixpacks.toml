@@ -1,0 +1,8 @@
+[providers]
+node = "18"
+
+[build]
+cmd = "cd payload && npm install && npm run build"
+
+[start]
+cmd = "cd payload && npm run start"
