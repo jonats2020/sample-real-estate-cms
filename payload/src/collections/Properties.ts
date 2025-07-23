@@ -51,9 +51,19 @@ export const Properties: CollectionConfig = {
     },
     {
       name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
+      type: 'group',
+      fields: [
+        {
+          name: 'url',
+          type: 'text',
+          required: false,
+        },
+        {
+          name: 'alt',
+          type: 'text',
+          required: false,
+        }
+      ]
     },
     {
       name: 'description',
