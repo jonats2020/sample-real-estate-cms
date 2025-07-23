@@ -105,6 +105,9 @@ export default function AdminDashboard() {
                       Property
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Image
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Location
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -125,6 +128,22 @@ export default function AdminDashboard() {
                         <div className="text-sm font-medium text-gray-900">
                           {property.title}
                         </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {property.image?.url ? (
+                          <img 
+                            src={property.image.url} 
+                            alt={property.title}
+                            className="w-16 h-12 object-cover rounded-lg border"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                        ) : (
+                          <div className="w-16 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                            <span className="text-xs text-gray-500">No image</span>
+                          </div>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {property.location}
