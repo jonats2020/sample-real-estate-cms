@@ -50,10 +50,12 @@ export const Properties: CollectionConfig = {
       min: 0,
     },
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
+      name: 'imageUrl',
+      type: 'text',
       required: false,
+      admin: {
+        description: 'URL to property image'
+      }
     },
     {
       name: 'description',
