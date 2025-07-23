@@ -51,7 +51,7 @@ export const adminAPI = {
   // Get all properties (including unpublished)
   async getAllProperties(): Promise<AdminProperty[]> {
     try {
-      const response = await fetch(`${PAYLOAD_API_URL}/properties`)
+      const response = await fetch(`${PAYLOAD_API_URL}/properties?admin=true`)
       if (!response.ok) {
         throw new Error('Failed to fetch properties')
       }
