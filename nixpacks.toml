@@ -1,7 +1,16 @@
 providers = ["node"]
 
+[variables]
+NODE_VERSION = "18"
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "npm"]
+
+[phases.install]
+cmds = ["cd payload && npm install"]
+
 [phases.build]
-cmds = ["cd payload && npm install", "cd payload && npm run build"]
+cmds = ["cd payload && npm run build"]
 
 [start]
-cmd = "cd payload && npm run start"
+cmd = "cd payload && npm start"
