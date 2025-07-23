@@ -21,7 +21,7 @@ A full-stack real estate listing system built with Payload CMS (backend) and Nex
    PAYLOAD_SECRET=your-very-long-random-secret-key
    FRONTEND_URL=https://your-frontend.vercel.app
    ```
-6. Deploy! Your admin panel will be at `https://your-app.railway.app/admin`
+6. Deploy! Your admin panel will be at `https://sample-real-estate-cms-production.up.railway.app/admin`
 
 ### 2. Deploy Frontend to Vercel
 
@@ -29,8 +29,8 @@ A full-stack real estate listing system built with Payload CMS (backend) and Nex
 2. Import the `frontend` folder
 3. Set environment variables:
    ```
-   NEXT_PUBLIC_PAYLOAD_API_URL=https://your-railway-app.railway.app/api
-   NEXT_PUBLIC_PAYLOAD_URL=https://your-railway-app.railway.app
+   NEXT_PUBLIC_PAYLOAD_API_URL=https://sample-real-estate-cms-production.up.railway.app/api
+   NEXT_PUBLIC_PAYLOAD_URL=https://sample-real-estate-cms-production.up.railway.app
    ```
 4. Deploy!
 
