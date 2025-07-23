@@ -61,6 +61,72 @@ const start = async () => {
       })
     })
 
+    // Seed endpoint for manual database reset
+    app.post('/api/seed', async (req, res) => {
+      try {
+        console.log('Starting manual database seed...')
+        
+        // Clear existing properties
+        const existingProperties = await payload.find({
+          collection: 'properties',
+          limit: 1000,
+        })
+        
+        for (const property of existingProperties.docs) {
+          await payload.delete({
+            collection: 'properties',
+            id: property.id,
+          })
+        }
+        
+        // Create new properties with images
+        const properties = [
+          {
+            title: 'Modern Downtown Apartment',
+            slug: 'modern-downtown-apartment',
+            location: 'Downtown District',
+            price: 450000,
+            imageUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+            description: 'Beautiful modern apartment in the heart of downtown with stunning city views and premium amenities.',
+            isPublished: true,
+          },
+          {
+            title: 'Suburban Family Home',
+            slug: 'suburban-family-home', 
+            location: 'Green Valley',
+            price: 750000,
+            imageUrl: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop',
+            description: 'Spacious family home in quiet neighborhood with large backyard and excellent schools nearby.',
+            isPublished: true,
+          },
+          {
+            title: 'Luxury Beachfront Condo',
+            slug: 'luxury-beachfront-condo',
+            location: 'Coastal Paradise',
+            price: 1200000,
+            imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
+            description: 'Exclusive beachfront condominium with ocean views and direct beach access.',
+            isPublished: true,
+          }
+        ]
+
+        for (const property of properties) {
+          await payload.create({
+            collection: 'properties',
+            data: property,
+          })
+        }
+
+        res.status(200).json({ 
+          message: 'Database reseeded successfully',
+          created: properties.length 
+        })
+      } catch (error) {
+        console.error('Seed endpoint error:', error)
+        res.status(500).json({ error: 'Failed to seed database' })
+      }
+    })
+
     // Add CORS middleware
     app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*')
