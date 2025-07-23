@@ -7,34 +7,18 @@ import sharp from 'sharp'
 
 import { Properties } from './collections/Properties.js'
 import { Media } from './collections/Media.js'
+import { Users } from './collections/Users.js'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: 'users',
+    user: Users.slug,
   },
   editor: lexicalEditor({}),
   collections: [
-    {
-      slug: 'users',
-      auth: {
-        disableLocalStrategy: true,
-      },
-      access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
-      },
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-        },
-      ],
-    },
+    Users,
     Properties,
     Media,
   ],
@@ -52,5 +36,6 @@ export default buildConfig({
     'http://localhost:3001',
     'https://localhost:3001',
     process.env.FRONTEND_URL || '',
+    'https://sample-real-estate-hlju5m4bm-natsdevstudio.vercel.app',
   ].filter(Boolean),
 })
