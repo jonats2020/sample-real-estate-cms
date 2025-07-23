@@ -1,8 +1,7 @@
-[providers]
-node = "18"
+providers = ["node"]
 
 [phases.build]
-cmds = ["cd payload && npm install && npm run build"]
+cmds = ["cd payload && npm install", "cd payload && npm run build"]
 
-[phases.start]
+[start]
 cmd = "cd payload && npm run start"
