@@ -23,6 +23,11 @@ const nextConfig = {
         hostname: 'sample-real-estate-cms-production.up.railway.app',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'googleusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
 }
