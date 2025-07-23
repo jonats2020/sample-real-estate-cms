@@ -1,0 +1,32 @@
+{
+  "name": "payload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "generate:types": "tsx src/server.ts generate:types",
+    "seed": "tsx src/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.48.0",
+    "@payloadcms/richtext-lexical": "^3.48.0",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "payload": "^3.48.0",
+    "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
