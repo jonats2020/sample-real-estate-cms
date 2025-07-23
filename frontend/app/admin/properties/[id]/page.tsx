@@ -188,21 +188,6 @@ export default function EditProperty({ params }: { params: Promise<{ id: string 
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  URL Slug (Auto-generated)
-                </label>
-                <input
-                  type="text"
-                  value={formData.slug}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600"
-                  disabled
-                  readOnly
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Generated automatically from the title
-                </p>
-              </div>
             </div>
 
             <div className="mt-6">
