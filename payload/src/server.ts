@@ -14,66 +14,96 @@ const start = async () => {
   const app = express()
   const PORT = Number(process.env.PORT) || 3000
 
-  // Initialize Payload
-  const payload = await getPayload({
-    config: payloadConfig
+  // Health check endpoints (available immediately)
+  app.get('/', (req, res) => {
+    res.status(200).json({ 
+      status: 'healthy',
+      message: 'Payload CMS API Server',
+      admin: '/admin',
+      api: '/api',
+      timestamp: new Date().toISOString()
+    })
   })
-
-  // Health check endpoint
+  
   app.get('/health', (req, res) => {
     res.status(200).json({ status: 'healthy' })
   })
 
-  // Static media files
-  app.use('/media', express.static(resolve(__dirname, '../media')))
+  console.log('Starting Payload CMS server...')
+  console.log('Database URI:', process.env.DATABASE_URI ? 'Set' : 'Not set')
+  
+  try {
+    // Initialize Payload
+    console.log('Initializing Payload...')
+    const payload = await getPayload({
+      config: payloadConfig
+    })
+    console.log('Payload initialized successfully!')
 
-  // Admin panel route
-  app.get('/admin*', async (req, res) => {
-    // For Payload v3, we need to handle admin differently
-    // This is a temporary solution - ideally we'd use Next.js
-    res.redirect('https://sample-real-estate-cms-production.up.railway.app/admin')
-  })
+    // Static media files
+    app.use('/media', express.static(resolve(__dirname, '../media')))
 
-  // API routes - handle through Local API
-  app.get('/api/properties', async (req, res) => {
-    try {
-      const result = await payload.find({
-        collection: 'properties',
-        where: {
-          isPublished: { equals: true }
-        }
+    // Admin panel route
+    app.get('/admin*', async (req, res) => {
+      res.status(200).json({
+        message: 'Payload v3 Admin Panel',
+        note: 'Admin panel requires Next.js integration in v3',
+        api_endpoints: ['/api/properties', '/api/properties/:slug']
       })
-      res.json(result)
-    } catch (error) {
-      console.error('Error fetching properties:', error)
-      res.status(500).json({ error: 'Failed to fetch properties' })
-    }
-  })
+    })
 
-  app.get('/api/properties/:slug', async (req, res) => {
-    try {
-      const result = await payload.find({
-        collection: 'properties',
-        where: {
-          slug: { equals: req.params.slug },
-          isPublished: { equals: true }
-        }
-      })
-      if (result.docs.length > 0) {
-        res.json(result.docs[0])
-      } else {
-        res.status(404).json({ error: 'Property not found' })
+    // API routes - handle through Local API
+    app.get('/api/properties', async (req, res) => {
+      try {
+        const result = await payload.find({
+          collection: 'properties',
+          where: {
+            isPublished: { equals: true }
+          }
+        })
+        res.json(result)
+      } catch (error) {
+        console.error('Error fetching properties:', error)
+        res.status(500).json({ error: 'Failed to fetch properties' })
       }
-    } catch (error) {
-      console.error('Error fetching property:', error)
-      res.status(500).json({ error: 'Failed to fetch property' })
-    }
-  })
+    })
+
+    app.get('/api/properties/:slug', async (req, res) => {
+      try {
+        const result = await payload.find({
+          collection: 'properties',
+          where: {
+            slug: { equals: req.params.slug },
+            isPublished: { equals: true }
+          }
+        })
+        if (result.docs.length > 0) {
+          res.json(result.docs[0])
+        } else {
+          res.status(404).json({ error: 'Property not found' })
+        }
+      } catch (error) {
+        console.error('Error fetching property:', error)
+        res.status(500).json({ error: 'Failed to fetch property' })
+      }
+    })
+
+  } catch (error) {
+    console.error('Failed to initialize Payload:', error)
+    
+    // Fallback routes if Payload fails
+    app.get('/api/*', (req, res) => {
+      res.status(503).json({ 
+        error: 'Payload CMS initialization failed',
+        message: 'Database connection or configuration issue'
+      })
+    })
+  }
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`)
+    console.log(`Health check: http://localhost:${PORT}/`)
     console.log(`API available at: http://localhost:${PORT}/api`)
-    console.log(`Note: Admin panel requires Next.js setup for Payload v3`)
   })
 }
 
