@@ -2,6 +2,8 @@
 
 A full-stack real estate listing system built with Payload CMS (backend) and Next.js (frontend).
 
+<img width="1920" height="2348" alt="screencapture-sample-real-estate-cms-vercel-app-2025-07-23-19_27_04" src="https://github.com/user-attachments/assets/06e27da7-660c-4147-bb3c-ae0758c4336f" />
+
 ## Architecture
 
 - **Backend**: Payload CMS with PostgreSQL (handles all API, admin panel, and database)
