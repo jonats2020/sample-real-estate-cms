@@ -38,7 +38,8 @@ const start = async () => {
   console.log('All env vars:', Object.keys(process.env).slice(0, 10))
   const dbConnection = process.env.DATABASE_URL || process.env.DATABASE_URI || process.env.POSTGRES_URL
   console.log('Using connection:', dbConnection ? 'Found' : 'None found')
-  console.log('Connection starts with:', dbConnection ? dbConnection.substring(0, 20) + '...' : 'None')
+  console.log('Connection starts with:', dbConnection ? dbConnection.substring(0, 50) + '...' : 'None')
+  console.log('Connection includes railway.app:', dbConnection ? dbConnection.includes('railway.app') : false)
   
   try {
     // Initialize Payload

@@ -30,6 +30,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || process.env.DATABASE_URI || process.env.POSTGRES_URL,
     },
+    migrationDir: './src/migrations',
+    prodMigrations: undefined,
   }),
   sharp,
   cors: [
